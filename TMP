@@ -1,0 +1,63 @@
+*Template metaprogramming (TMP) is a powerful and advanced technique in C++ that involves using templates to perform computations and manipulations at compile-time.
+*Template metaprogramming (TMP): Using templates to perform computations at compile-time.
+*It allows you to write code that gets executed by the compiler during the compilation phase, rather than at runtime. Template metaprogramming leverages the fact that C++ templates are Turing complete.
+
+
+
+
+*Type Traits: Traits are used to inspect and manipulate types at compile-time. The <type_traits> header provides many useful traits.
+
+
+
+Eg: Factorial program
+
+#include <bits/stdc++.h>
+using namespace std;
+template<int N>
+struct factorial
+{
+    static constexpr int value=N *factorial<N-1>::value;
+};
+template<>
+struct factorial<0>
+{
+    static constexpr int value=1;
+};
+int main()
+{
+     constexpr int res=factorial<4>::value;
+    cout<<res;
+}
+
+o/p:24
+
+
+
+Eg: sum of fibanocci series
+
+#include <bits/stdc++.h>
+using namespace std;
+
+template<int N>
+struct fib
+{
+    static constexpr int value=fib<N-1>::value+fib<N-2>::value;
+};
+template<>
+struct fib<0>
+{
+    static constexpr int value=0;
+};
+template<>
+struct fib<1>
+{
+    static constexpr int value=1;
+};
+int main()
+{
+    constexpr int res=fib<10>::value;
+    cout<<"fibnanocci series of 10 terms is :"<<res<<endl;
+    return 0;
+}
+
+o/p: fibnanocci series of 10 terms is :55
